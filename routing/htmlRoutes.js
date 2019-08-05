@@ -23,12 +23,12 @@ router.get("/make-profile-javascript", function(req, res) {
   res.sendFile(path.join(__dirname, "../public/Javascript/Survey.js"));
 });
 
-router.get("/profile-page.js", function(req, res) {
-  res.sendFile(path.join(__dirname, "../public/Html/Profile-Page.html"));
+router.get("/login.js", function(req, res) {
+  res.sendFile(path.join(__dirname, "../public/Javascript/Login.js"));
 });
 
 router.get("/database", function(req, res) {
-  res.sendFile(path.join(__dirname, "../app/data/friends.json"));
+  res.sendFile(path.join(__dirname, "../app/data/friends.js"));
 });
 
 module.exports = router;

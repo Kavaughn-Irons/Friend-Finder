@@ -23,10 +23,11 @@ location.href = "./";
 
 function getInfo(){
  
- function ProfileObject(name,image,password){
+ function ProfileObject(name,image,password,scores){
      this.name = name;
      this.image = image;
      this.password = password;
+     this.scores = scores;
  }
     
  var scores = [$(".Q1").val(),$(".Q2").val(),$(".Q3").val(),$(".Q4").val(),$(".Q5").val(),$(".Q6").val(),$(".Q7").val(),$(".Q8").val(),$(".Q9").val(),$(".Q10").val()];
@@ -48,21 +49,44 @@ function getInfo(){
  
  }else{
     
-    var profile = new ProfileObject(name,image,password);  
+    var profile = new ProfileObject(name,image,password,scores);  
      
-    console.log(profile);
+    //console.log(profile);
     
     
      
     var databaseRef = database.ref(name);
+    var nameTaken = false; 
      
-    databaseRef.set(profile);  
-     
-    if(databaseRef.name === "jef"){
-    console.log("true!") 
-    }else{
-    console.log("false")
+    databaseRef.once("value",function(data){
+    
+    try{
+    
+    
+    console.log(data.val().name);
+    
+    
+    nameTaken = true;
+        
+    }catch(error){
+    
+    databaseRef.set(profile);
+    $(".error").text("Profile Created!");
+    window.scrollTo(0, 100);
+        
     }
+    
+    if(nameTaken === false){
+    databaseRef.set(profile); 
+    }else{
+    $(".error").text("That Name Is Taken!");
+    window.scrollTo(0, 100);
+    }
+    
+    },function(error){});
+    
+     
+
      
 
      
